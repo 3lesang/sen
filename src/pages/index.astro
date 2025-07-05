@@ -1,25 +1,74 @@
 ---
-import '../styles/global.css';
-// Component Imports
-import Button from '../components/Button.astro';
+import BannerCarousel from "@/components/banner-carousel";
+import ProductCard from "@/components/product-card";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Main from "@/layouts/main.astro";
+import { pb } from "@/lib/pocketbase";
+import "@/styles/global.css";
 
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+const products = await pb.collection("products").getFullList();
+const categories = await pb.collection("categories").getFullList();
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
-	</head>
-
-	<body>
-		<div class="grid place-items-center h-screen content-center">
-			<Button>Tailwind Button in Astro!</Button>
-			<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
-		</div>
-	</body>
-</html>
+<Main title="Home Page">
+  <div class="grid grid-cols-12 gap-2">
+    <div class="col-span-3 sticky top-[84px] h-96">
+      <Card className="rounded-md border-none shadow-none bg-gray-50">
+        <CardHeader>
+          <CardTitle>Danh mục</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {
+            categories?.map((item, index: number) => (
+              <Button
+                key={index}
+                variant="link"
+                className="w-full justify-start"
+              >
+                {item?.name}
+              </Button>
+            ))
+          }
+        </CardContent>
+      </Card>
+    </div>
+    <div class="col-span-9">
+      <div class="grid grid-cols-1 gap-2">
+        <BannerCarousel client:load />
+        <Card className="rounded-md border-none shadow-none bg-gray-50">
+          <CardHeader>
+            <CardTitle>Mới nhất</CardTitle>
+            <CardAction>
+              <a href="/product" class="text-sm text-blue-600 font-medium">
+                Xem tất cả
+              </a>
+            </CardAction>
+          </CardHeader>
+          <CardContent>
+            <div class="grid grid-cols-4 gap-2">
+              {
+                products?.map((item, index: number) => (
+                  <a href={`/product/${item?.slug}`}>
+                    <ProductCard
+                      id={item?.id}
+                      name={item?.name}
+                      thumbnail={item?.gallery[0]}
+                      price={item?.price}
+                    />
+                  </a>
+                ))
+              }
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  </div>
+</Main>

@@ -1,0 +1,187 @@
+---
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Main from "@/layouts/main.astro";
+import { pb } from "@/lib/pocketbase";
+import { cn } from "@/lib/utils";
+import "@/styles/global.css";
+import { MinusIcon, PlusIcon, StarIcon } from "lucide-react";
+
+export async function getStaticPaths() {
+  const slugs = await pb.collection("products").getFullList({ fields: "slug" });
+  return slugs.map((item) => ({ params: { slug: item?.slug } }));
+}
+
+const { slug } = Astro.params;
+
+const DESC = `
+Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng)
+`;
+---
+
+<Main>
+  <Breadcrumb className="mb-2">
+    <BreadcrumbList>
+      <BreadcrumbItem>
+        <a href="/">Trang chủ</a>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator />
+      <BreadcrumbItem>Kết quả</BreadcrumbItem>
+    </BreadcrumbList>
+  </Breadcrumb>
+  <div class="grid grid-cols-12 gap-2">
+    <div class="col-span-9">
+      <div class="grid grid-cols-12 gap-2">
+        <div class="grid col-span-12 grid-cols-12 gap-2">
+          <div class="col-span-5 sticky top-24 h-96">
+            <Card className="shadow-none border-none bg-gray-50 rounded-md">
+              <CardContent>
+                <div class="bg-white rounded-md h-80"></div>
+              </CardContent>
+              <CardFooter>
+                <div class="h-16 w-16 bg-gray-100 rounded-md"></div>
+              </CardFooter>
+            </Card>
+          </div>
+          <div class="col-span-7">
+            <div class="grid grid-cols-1 gap-2">
+              <Card className="shadow-none border-none bg-gray-50 rounded-md">
+                <CardHeader>
+                  <!-- <CardTitle>{product?.name}</CardTitle> -->
+                  <CardDescription>Đã bán 12</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p class="text-xl font-bold">
+                    <!-- {formatVND(product?.price)} -->
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="shadow-none border-none bg-gray-50 rounded-md">
+                <CardHeader>
+                  <CardTitle>Thông tin vận chuyển</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>
+                    Giao đến Q. 9 - TP Thủ Đức, P. Tăng Nhơn Phú A, Hồ Chí Minh
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="shadow-none border-none bg-gray-50 rounded-md">
+                <CardHeader>
+                  <CardTitle>Mô tả sản phẩm</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>{DESC}</p>
+                </CardContent>
+              </Card>
+              <Card className="shadow-none border-none bg-gray-50 rounded-md">
+                <CardHeader>
+                  <CardTitle>Sản phẩm tương tự</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div class="grid grid-cols-3 gap-2">
+                    <!-- {
+                      products?.map((item, index: number) => (
+                        <a
+                          to="/product/$id"
+                        >
+                          <ProductCard
+                            id={item?.id}
+                            name={item?.name}
+                            price={item?.price}
+                            thumbnail={item?.gallery[0]}
+                          />
+                        </a>
+                      ))
+                    } -->
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-12">
+          <Card className="border-none shadow-none bg-gray-50 rounded-md">
+            <CardHeader>
+              <CardTitle>Khách hàng đánh giá</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div class="flex flex-col items-center justify-center gap-2">
+                <StarIcon />
+                <p class="text-center text-sm text-gray-600">
+                  Chưa có đánh giá nào cho sản phẩm này
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+    <div class="col-span-3 sticky h-72 top-24">
+      <Card className="shadow-none rounded-md border-0 bg-gray-50">
+        <CardHeader>
+          <div class="h-12 w-12 bg-gray-100 rounded-md"></div>
+        </CardHeader>
+        <CardContent>
+          <p class="mb-2">Số lượng</p>
+          <div class="flex items-center gap-2">
+            <Button size="icon" variant="outline">
+              <MinusIcon />
+            </Button>
+            <div class={cn(buttonVariants({ variant: "outline" }))}>1</div>
+            <Button size="icon" variant="outline">
+              <PlusIcon />
+            </Button>
+          </div>
+          <div class="mt-4">
+            <p class="mb-2">Tạm tính</p>
+            <p class="text-xl font-semibold">262.500₫</p>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <div class="w-full">
+            <Button className="w-full" variant="outline"> Thêm vào giỏ </Button>
+            <div class="p-1"></div>
+            <Button className="w-full">Mua ngay</Button>
+          </div>
+        </CardFooter>
+      </Card>
+    </div>
+    <div class="col-span-12">
+      <Card className="border-none shadow-none rounded-md bg-gray-50">
+        <CardHeader>
+          <CardTitle>Sản phẩm bạn đã xem</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="grid grid-cols-5 gap-2">
+            <!-- {
+              products?.map((item, index: number) => (
+                <a  href="/product/$id">
+                  <ProductCard
+                    id={item?.id}
+                    name={item?.name}
+                    price={item?.price}
+                    thumbnail={item?.gallery[0]}
+                  />
+                </a>
+              ))
+            } -->
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </div>
+</Main>
