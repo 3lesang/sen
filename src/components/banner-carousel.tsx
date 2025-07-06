@@ -8,23 +8,14 @@ import {
 } from "@/components/ui/carousel";
 import { API_URL, pb } from "@/lib/pocketbase";
 import { cn } from "@/lib/utils";
-import {
-  QueryClient,
-  QueryClientProvider,
-  queryOptions,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
+import { queryClient } from "@/stores/query";
+import { useStore } from "@nanostores/react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useState } from "react";
 
-const queryClient = new QueryClient();
-
-export const bannersQueryOptions = queryOptions({
-  queryKey: ["banners"],
-  queryFn: () => pb.collection("banners").getFullList({ perPage: 5 }),
-});
-
-function BannerList() {
+function BannerCarousel() {
+  const client = useStore(queryClient);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
@@ -40,7 +31,14 @@ function BannerList() {
     });
   }, [api]);
 
-  const bannersQuery = useSuspenseQuery(bannersQueryOptions);
+  const bannersQuery = useSuspenseQuery(
+    {
+      queryKey: ["banners"],
+      queryFn: () => pb.collection("banners").getFullList({ perPage: 5 }),
+    },
+    client
+  );
+
   const banners = bannersQuery.data;
 
   if (!banners?.length) return;
@@ -61,7 +59,7 @@ function BannerList() {
     >
       <CarouselContent>
         {banners?.map((item, index) => (
-          <CarouselItem key={index} className="">
+          <CarouselItem key={index} className="select-none">
             <a href="/product">
               <img
                 loading="lazy"
@@ -94,14 +92,6 @@ function BannerList() {
         )}
       </div>
     </Carousel>
-  );
-}
-
-function BannerCarousel() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <BannerList />
-    </QueryClientProvider>
   );
 }
 

@@ -1,0 +1,34 @@
+---
+import { Card, CardContent } from "@/components/ui/card";
+import { API_URL } from "@/lib/pocketbase";
+import { formatVND } from "@/lib/utils";
+import { Image } from "astro:assets";
+
+interface Props {
+  thumbnail?: string;
+  id?: string;
+  name?: string;
+  price?: number;
+}
+
+const { id, name, price = 0, thumbnail } = Astro.props;
+
+const src = thumbnail
+  ? `${API_URL}/api/files/products/${id}/${thumbnail}`
+  : "/empty.png";
+---
+
+<Card className="rounded-md shadow-none border-none overflow-hidden">
+  <Image
+    src={src}
+    loading="eager"
+    alt={name ?? ""}
+    class="w-full h-auto"
+    height={176}
+    width={100}
+  />
+  <CardContent>
+    <p class="text-sm line-clamp-2">{name}</p>
+    <p class="font-semibold mt-2">{formatVND(price)}</p>
+  </CardContent>
+</Card>

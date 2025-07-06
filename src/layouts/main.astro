@@ -1,19 +1,26 @@
 ---
-import Basket from "@/components/basket";
-import SearchForm from "@/components/search";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import "@/styles/global.css";
+import "@fontsource/inter";
+import LoadingIndicator from "astro-loading-indicator/component";
 import { Image } from "astro:assets";
-import { UserCircleIcon } from "lucide-react";
+import { ClientRouter } from "astro:transitions";
+import { SearchIcon, ShoppingBagIcon, UserCircleIcon } from "lucide-react";
+
 const { title } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <ClientRouter />
+    <LoadingIndicator color="#00a6f4" />
   </head>
   <body>
     <header class="sticky top-0 z-50">
@@ -22,6 +29,7 @@ const { title } = Astro.props;
           <nav class="flex items-center gap-2">
             <a href="/">
               <Image
+                class="select-none h-10"
                 loading="eager"
                 width={100}
                 height={100}
@@ -30,16 +38,49 @@ const { title } = Astro.props;
               />
             </a>
           </nav>
-          <SearchForm />
+          <form action="/search" method="GET" class="flex">
+            <Input
+              type="text"
+              name="q"
+              placeholder="Tìm kiếm sản phẩm"
+              className="w-96 bg-white border-none shadow-none focus-visible:ring-0 rounded-tr-none rounded-br-none"
+              required
+            />
+            <Button type="submit" className="rounded-tl-none rounded-bl-none">
+              <SearchIcon />
+            </Button>
+          </form>
           <div class="flex items-center gap-2">
-            <Basket />
-            <a href="/signin">
-              <Button>
-                <UserCircleIcon />
-                Tài khoản
-              </Button>
+            <a
+              href="/cart"
+              class={cn(
+                buttonVariants({ variant: "ghost", size: "icon" }),
+                "relative"
+              )}
+            >
+              <ShoppingBagIcon />
+              <Badge
+                variant="destructive"
+                className="absolute top-0 right-0 h-4 w-4 rounded-full p-0.5 font-mono tabular-nums"
+              >
+                8
+              </Badge>
+            </a>
+            <a href="/signin" class={cn(buttonVariants())}>
+              <UserCircleIcon />
+              Tài khoản
             </a>
           </div>
+        </div>
+      </div>
+      <div class="max-w-7xl mx-auto">
+        <div class="flex items-center">
+          <a href="/about" class={cn(buttonVariants({ variant: "link" }))}
+            >Giới thiệu</a
+          >
+          <a href="/product" class={cn(buttonVariants({ variant: "link" }))}
+            >Sản phẩm</a
+          >
         </div>
       </div>
     </header>

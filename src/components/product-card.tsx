@@ -19,8 +19,10 @@ function ProductCard({ id, name, price = 0, thumbnail }: ProductCardProps) {
       <img
         src={src}
         loading="lazy"
-        alt={name}
-        className="h-44 w-full object-cover"
+        decoding="async"
+        height={176}
+        alt="product_image"
+        className="w-full object-cover select-none"
       />
       <CardContent>
         <p className="text-sm line-clamp-2">{name}</p>
