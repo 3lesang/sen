@@ -23,8 +23,8 @@ function CategoryList() {
       key={item?.id}
       href={`/product/${item?.slug}`}
       className={cn(
-        buttonVariants({ variant: "link" }),
-        "w-full justify-start select-none"
+        buttonVariants({ variant: "ghost" }),
+        "w-full justify-start select-none text-black"
       )}
     >
       {item?.name}

@@ -9,7 +9,13 @@ import "@fontsource/inter";
 import LoadingIndicator from "astro-loading-indicator/component";
 import { Image } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
-import { SearchIcon, ShoppingBagIcon, UserCircleIcon } from "lucide-react";
+import {
+  ChevronDownIcon,
+  LayoutGridIcon,
+  SearchIcon,
+  ShoppingBagIcon,
+  UserCircleIcon,
+} from "lucide-react";
 
 const { title } = Astro.props;
 ---
@@ -38,26 +44,38 @@ const { title } = Astro.props;
                 alt="logo"
               />
             </a>
+            <Button variant="ghost">
+              <LayoutGridIcon />
+              Danh mục
+              <ChevronDownIcon />
+            </Button>
           </nav>
-          <form action="/search" method="GET" class="flex">
+          <form action="/search" method="GET" class="relative">
+            <div
+              class="absolute left-0 top-1/2 -translate-y-1/2 w-12 flex justify-center text-gray-500"
+            >
+              <SearchIcon size={18} />
+            </div>
             <Input
               type="text"
               name="q"
               placeholder="Tìm kiếm sản phẩm"
-              className="w-96 focus-visible:ring-0 rounded-tr-none rounded-br-none"
+              className="w-96 h-10 pr-10 pl-10"
             />
-            <Button type="submit" className="rounded-tl-none rounded-bl-none">
-              <SearchIcon />
+            <Button
+              type="submit"
+              variant="link"
+              className="rounded-tl-none rounded-bl-none absolute right-0 top-1/2 -translate-y-1/2 text-black hover:cursor-pointer hover:no-underline"
+            >
+              Tìm kiếm
             </Button>
           </form>
           <div class="flex items-center gap-2">
             <a
               href="/cart"
-              class={cn(
-                buttonVariants({ variant: "ghost", size: "icon" }),
-                "relative"
-              )}
+              class={cn(buttonVariants({ variant: "ghost" }), "relative")}
             >
+              Giỏ hàng
               <ShoppingBagIcon />
               <Badge
                 variant="destructive"
@@ -67,13 +85,14 @@ const { title } = Astro.props;
               </Badge>
             </a>
             <a href="/signin" class={cn(buttonVariants())}>
+              Đăng nhập
               <UserCircleIcon />
-              Tài khoản
             </a>
           </div>
         </div>
       </div>
-      <!-- <Separator />
+      <Separator />
+      <!-- 
       <div class="bg-white">
         <div class="max-w-7xl mx-auto">
           <div class="flex items-center">
