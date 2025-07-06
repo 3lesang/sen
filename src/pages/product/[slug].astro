@@ -1,15 +1,24 @@
 ---
 export const prerender = false;
+import ProductDetail from "@/components/product-detail.astro";
 import Main from "@/layouts/main.astro";
 import { pb } from "@/lib/pocketbase";
 
 const { slug } = Astro.params;
-const product = await pb
-  .collection("products")
-  .getFirstListItem(`slug = "${slug}"`);
+
+let product = null;
+try {
+  product = await pb
+    .collection("products")
+    .getFirstListItem(`slug = "${slug}"`);
+} catch (err) {
+  const error = err as { status?: number };
+  if (error.status === 404) {
+    return Astro.redirect("/404");
+  }
+}
 ---
 
 <Main>
-  <!-- <Router client:only /> -->
-  <p>{product?.name}</p>
+  <ProductDetail name={product?.name} price={product?.price} />
 </Main>

@@ -50,7 +50,7 @@ function BannerCarousel() {
   return (
     <Carousel
       setApi={setApi}
-      className="w-full px-4 pt-4 bg-gray-50 rounded-md"
+      className="w-full px-4 pt-4 bg-white rounded-md"
       plugins={[
         Autoplay({
           delay: 10000,
@@ -71,8 +71,8 @@ function BannerCarousel() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="border-none" />
-      <CarouselNext className="border-none" />
+      <CarouselPrevious className="border-none left-0" />
+      <CarouselNext className="border-none right-0" />
       <div className="flex justify-center gap-1.5">
         {Array.from({ length: Number(banners?.length) })?.map(
           (_, index: number) => (

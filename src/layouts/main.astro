@@ -2,6 +2,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import "@/styles/global.css";
 import "@fontsource/inter";
@@ -22,9 +23,9 @@ const { title } = Astro.props;
     <ClientRouter />
     <LoadingIndicator color="#00a6f4" />
   </head>
-  <body>
+  <body class="bg-gray-50">
     <header class="sticky top-0 z-50">
-      <div class="bg-gray-50">
+      <div class="bg-white">
         <div class="flex items-center justify-between max-w-7xl mx-auto py-2">
           <nav class="flex items-center gap-2">
             <a href="/">
@@ -43,8 +44,7 @@ const { title } = Astro.props;
               type="text"
               name="q"
               placeholder="Tìm kiếm sản phẩm"
-              className="w-96 bg-white border-none shadow-none focus-visible:ring-0 rounded-tr-none rounded-br-none"
-              required
+              className="w-96 focus-visible:ring-0 rounded-tr-none rounded-br-none"
             />
             <Button type="submit" className="rounded-tl-none rounded-bl-none">
               <SearchIcon />
@@ -73,18 +73,21 @@ const { title } = Astro.props;
           </div>
         </div>
       </div>
-      <div class="max-w-7xl mx-auto">
-        <div class="flex items-center">
-          <a href="/about" class={cn(buttonVariants({ variant: "link" }))}
-            >Giới thiệu</a
-          >
-          <a href="/product" class={cn(buttonVariants({ variant: "link" }))}
-            >Sản phẩm</a
-          >
+      <!-- <Separator />
+      <div class="bg-white">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex items-center">
+            <a href="/about" class={cn(buttonVariants({ variant: "link" }))}
+              >Giới thiệu</a
+            >
+            <a href="/product" class={cn(buttonVariants({ variant: "link" }))}
+              >Sản phẩm</a
+            >
+          </div>
         </div>
-      </div>
+      </div> -->
     </header>
-    <main class="max-w-7xl mx-auto py-2">
+    <main class="max-w-7xl mx-auto py-6">
       <slot />
     </main>
   </body>

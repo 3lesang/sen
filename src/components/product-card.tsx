@@ -15,7 +15,7 @@ function ProductCard({ id, name, price = 0, thumbnail }: ProductCardProps) {
     : "/empty.png";
 
   return (
-    <Card className="rounded-md shadow-none border-none overflow-hidden">
+    <Card className="rounded-md overflow-hidden">
       <img
         src={src}
         loading="lazy"
