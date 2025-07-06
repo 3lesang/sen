@@ -1,0 +1,49 @@
+---
+import BannerCarousel from "@/components/banner-carousel";
+import CategoryList from "@/components/category-list";
+import LatestProductList from "@/components/latest-product-list";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Main from "@/layouts/main.astro";
+import "@/styles/global.css";
+---
+
+<Main title="Trang chủ">
+  <div class="grid grid-cols-12 gap-2">
+    <div class="col-span-3 sticky top-[84px] h-96">
+      <Card className="rounded-md border-none shadow-none bg-gray-50">
+        <CardHeader>
+          <CardTitle>Danh mục</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <CategoryList client:load />
+        </CardContent>
+      </Card>
+    </div>
+    <div class="col-span-9">
+      <div class="grid grid-cols-1 gap-2">
+        <BannerCarousel client:load />
+        <Card className="rounded-md border-none shadow-none bg-gray-50">
+          <CardHeader>
+            <CardTitle>Mới nhất</CardTitle>
+            <CardAction>
+              <a href="/product" class="text-sm text-blue-600 font-medium">
+                Xem tất cả
+              </a>
+            </CardAction>
+          </CardHeader>
+          <CardContent>
+            <div class="grid grid-cols-4 gap-2">
+              <LatestProductList client:load />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  </div>
+</Main>
