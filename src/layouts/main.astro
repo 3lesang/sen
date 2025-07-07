@@ -1,5 +1,6 @@
 ---
 import HideOnScroll from "@/components/HideOnScroll.astro";
+import { MainCategorySelect } from "@/components/main-category-select";
 import Tour from "@/components/Tour";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -56,12 +57,9 @@ const { title } = Astro.props;
                 alt="logo"
               />
             </a>
-            <Tour client:load />
-            <Button variant="ghost" id="start-tour">
-              <LayoutDashboardIcon />
-              Danh mục
-              <ChevronDownIcon />
-            </Button>
+            <a href="/about" class={cn(buttonVariants({ variant: "link" }))}
+              >Khám phá</a
+            >
           </nav>
           <div class="flex justify-center flex-1 px-2">
             <form
@@ -74,19 +72,15 @@ const { title } = Astro.props;
               >
                 <SearchIcon size={18} />
               </div>
-              <Input
+              <input
                 type="text"
                 name="q"
                 placeholder="Tìm kiếm sản phẩm"
-                className="w-full md:w-96 pr-10 pl-10"
+                class="w-full md:w-[500px] pr-10 pl-10 py-2 border rounded-full"
               />
-              <Button
-                type="submit"
-                variant="link"
-                className="rounded-tl-none rounded-bl-none absolute right-0 top-1/2 -translate-y-1/2 text-black hover:cursor-pointer hover:no-underline"
-              >
-                Tìm kiếm
-              </Button>
+              <div class="absolute top-1/2 right-4 -translate-y-1/2">
+                <MainCategorySelect client:load />
+              </div>
             </form>
           </div>
 
