@@ -15,14 +15,14 @@ function ProductCard({ id, name, price = 0, thumbnail }: ProductCardProps) {
     : "/empty.png";
 
   return (
-    <Card className="rounded-md overflow-hidden">
+    <Card className="rounded-md border-none shadow-none overflow-hidden">
       <img
         src={src}
         loading="lazy"
         decoding="async"
         height={176}
         alt="product_image"
-        className="w-full object-cover select-none"
+        className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
       />
       <CardContent>
         <p className="text-sm line-clamp-2">{name}</p>

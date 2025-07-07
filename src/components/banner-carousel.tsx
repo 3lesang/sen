@@ -65,7 +65,7 @@ function BannerCarousel() {
                 loading="lazy"
                 src={`${API_URL}/api/files/banners/${item?.id}/${item?.image}`}
                 alt=""
-                className="h-96 rounded-md w-full object-cover"
+                className="md:h-96 rounded-md w-full object-cover"
               />
             </a>
           </CarouselItem>

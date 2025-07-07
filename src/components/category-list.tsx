@@ -24,7 +24,7 @@ function CategoryList() {
       href={`/product/${item?.slug}`}
       className={cn(
         buttonVariants({ variant: "ghost" }),
-        "w-full justify-start select-none text-black"
+        "md:w-full justify-start select-none text-black"
       )}
     >
       {item?.name}

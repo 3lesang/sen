@@ -15,19 +15,19 @@ import "@/styles/global.css";
 
 <Main title="Trang chủ">
   <div class="grid grid-cols-12 gap-6">
-    <div class="col-span-3 sticky top-[81px] h-96">
-      <Card className="rounded-md border-none shadow-none">
+    <div class="col-span-12 md:col-span-3 md:sticky md:top-[81px]">
+      <Card className="rounded-md border-none shadow-none" id="cate">
         <CardHeader>
           <CardTitle>Danh mục</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex md:block overflow-x-auto">
           <CategoryList client:load />
         </CardContent>
       </Card>
     </div>
-    <div class="col-span-9">
-      <div class="grid grid-cols-1 gap-6">
-        <BannerCarousel client:load />
+    <div class="col-span-12 md:col-span-9">
+      <div class="grid grid-cols-1 gap-2">
+        <BannerCarousel client:only />
         <Card className="rounded-md border-none shadow-none">
           <CardHeader>
             <CardTitle>Mới nhất</CardTitle>
@@ -38,8 +38,8 @@ import "@/styles/global.css";
             </CardAction>
           </CardHeader>
           <CardContent>
-            <div class="grid grid-cols-4 gap-6">
-              <LatestProductList client:load />
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <LatestProductList client:only />
             </div>
           </CardContent>
         </Card>
@@ -52,7 +52,7 @@ import "@/styles/global.css";
           <CardTitle>Nổi bật nhất</CardTitle>
         </CardHeader>
         <CardContent>
-          <div class="grid grid-cols-5 gap-6">
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
             <div class="h-56 bg-gray-50"></div>
           </div>
         </CardContent>

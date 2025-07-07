@@ -1,0 +1,62 @@
+<div class="hide-on-scroll sticky top-0 transition-transform duration-300 z-10">
+  <slot />
+</div>
+
+<style>
+  .hide-on-scroll.hidden {
+    transform: translateY(-100%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hide-on-scroll {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function initScrollHide() {
+    let lastScrollTop = 0;
+
+    type ThrottleFn = (...args: any[]) => void;
+
+    function throttle(fn: ThrottleFn, delay: number): ThrottleFn {
+      let isThrottled: boolean = false;
+
+      return function (...args: any[]) {
+        if (!isThrottled) {
+          isThrottled = true;
+          requestAnimationFrame(() => {
+            fn(...args);
+            setTimeout(() => {
+              isThrottled = false;
+            }, delay);
+          });
+        }
+      };
+    }
+
+    const handleScroll = () => {
+      const element = document.querySelector(".hide-on-scroll");
+      if (!element) return;
+      const currentScroll =
+        window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll > lastScrollTop && currentScroll > 0) {
+        element.classList.add("hidden");
+      } else {
+        element.classList.remove("hidden");
+      }
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    };
+
+    const throttledHandleScroll = throttle(handleScroll, 10);
+
+    window.addEventListener("scroll", throttledHandleScroll);
+
+    window.addEventListener("unload", () => {
+      window.removeEventListener("scroll", throttledHandleScroll);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initScrollHide);
+  window.addEventListener("popstate", initScrollHide);
+</script>
