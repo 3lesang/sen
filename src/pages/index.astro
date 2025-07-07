@@ -27,7 +27,7 @@ import "@/styles/global.css";
     </div>
     <div class="col-span-12 md:col-span-9">
       <div class="grid grid-cols-1 gap-2">
-        <BannerCarousel client:only />
+        <BannerCarousel client:load />
         <Card className="rounded-md border-none shadow-none">
           <CardHeader>
             <CardTitle>Mới nhất</CardTitle>
@@ -39,7 +39,7 @@ import "@/styles/global.css";
           </CardHeader>
           <CardContent>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <LatestProductList client:only />
+              <LatestProductList client:load />
             </div>
           </CardContent>
         </Card>
