@@ -1,0 +1,8 @@
+{
+  "name": "sen",
+  "type": "javascript",
+  "assets": "./dist",
+  "build": {
+    "command": "npm run build"
+  }
+}
