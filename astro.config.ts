@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import AstroPWA from "@vite-pwa/astro";
 import { defineConfig } from "astro/config";
 
-import cloudflare from "@astrojs/cloudflare";
+import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
@@ -41,5 +41,5 @@ export default defineConfig({
     port: 3000,
   },
 
-  adapter: cloudflare(),
+  adapter: netlify(),
 });
