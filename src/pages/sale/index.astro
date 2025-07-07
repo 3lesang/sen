@@ -1,0 +1,56 @@
+---
+import { CategorySelect } from "@/components/category-select";
+import LatestProductListSec from "@/components/latest-product-list-sec";
+import Second from "@/layouts/second.astro";
+import "@/styles/global.css";
+import { SearchIcon } from "lucide-react";
+---
+
+<Second title="Trang chủ">
+  <div
+    class="bg-[url(https://tranhslogan.vn/assets/img/banner.png)] h-[calc(100vh-80px)] object-cover w-full pt-24 px-8 md:px-0"
+  >
+    <div class="h-full md:max-w-7xl mx-auto">
+      <p class="leading-16">Tranhslogan.vn - Khơi Nguồn Cảm Hứng</p>
+      <h1 class="font-bold text-4xl text-gray-700 md:w-96 mb-16 leading-10">
+        Thổi Hồn Không Gian Sống & Làm Việc
+      </h1>
+      <form action="/sale/search">
+        <div class="relative md:w-fit">
+          <div class="absolute text-gray-400 top-1/2 -translate-y-1/2 left-6">
+            <SearchIcon />
+          </div>
+          <input
+            name="q"
+            type="text"
+            class="bg-white w-full md:w-[600px] py-3 rounded-full shadow pl-16 h-16"
+            placeholder="Bạn muốn ăn gì?"
+          />
+          <div class="absolute right-8 top-1/2 -translate-y-1/2">
+            <CategorySelect client:load />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-2 md:px-0">
+    <div class="mt-24">
+      <div class="flex justify-between">
+        <h3 class="text-2xl font-bold">Mới nhất</h3>
+        <a href="/">Xem tất cả</a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <LatestProductListSec client:load />
+      </div>
+    </div>
+    <div class="mt-24">
+      <div class="flex justify-between">
+        <h3 class="text-2xl font-bold">Nổi bật nhất</h3>
+        <a href="/">Xem tất cả</a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <LatestProductListSec client:load />
+      </div>
+    </div>
+  </div>
+</Second>
