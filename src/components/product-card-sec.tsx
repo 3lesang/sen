@@ -22,7 +22,7 @@ function ProductCard({ id, name, price = 0, thumbnail }: ProductCardProps) {
         decoding="async"
         height={176}
         alt="product_image"
-        className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
+        className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8"
       />
       <CardContent>
         <p className="text-lg font-bold line-clamp-2">{name}</p>
