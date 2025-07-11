@@ -1,13 +1,39 @@
-# Astro with Tailwind
+# 🛍️ Sang's E-Commerce Website
 
-```sh
-npm create astro@latest -- --template with-tailwindcss
-```
+A modern, responsive **eCommerce website** built to showcase product listings, cart functionality, and a smooth user experience. This project demonstrates my front-end development skills, including dynamic UI interactions, responsive design, and API integration.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/with-tailwindcss)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/with-tailwindcss)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/with-tailwindcss/devcontainer.json)
+---
 
-Astro comes with [Tailwind](https://tailwindcss.com) support out of the box. This example showcases how to style your Astro project with Tailwind.
+## 💡 Features
 
-For complete setup instructions, please see our [Tailwind Integration Guide](https://docs.astro.build/en/guides/integrations-guide/tailwind).
+- 🛒 Product catalog with filtering and search
+- 👤 User authentication (login/signup)
+- 🧺 Add to cart & remove from cart
+- 📦 Checkout process simulation
+- ⚡ Fully responsive & mobile-friendly design
+- 🔍 Clean UI with modern design principles
+- 🌐 API integration (mock or real)
+
+---
+
+## 🔧 Tech Stack
+
+- **Framework**: React / Astro *(choose one)*
+- **Styling**: Tailwind CSS
+- **State Management**: Context API
+- **Routing**: React Router / Astro Routing
+- **API**: REST API / Pocketbase
+- **Deployment**: Netlify
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/3lesang/sen.git
+cd sen
+pnpm install
+# or
+yarn install
